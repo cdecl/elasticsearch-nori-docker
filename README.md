@@ -51,7 +51,7 @@ PUT nori_test
           }
         },
         "analyzer": {
-          "nori_analyzer": {
+          "korean": {
             "type": "custom",
             "tokenizer": "nori_user_dict"
           }
@@ -65,7 +65,7 @@ PUT nori_test
         "type": "text"
       },
       "text": {
-        "analyzer": "nori_analyzer",
+        "analyzer": "korean",
         "type": "text"
       }
     }
