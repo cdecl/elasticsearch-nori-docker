@@ -1,14 +1,14 @@
-## Elasticsearch nori 분석기 테스트 
+## Elasticsearch nori 분석기 테스트 (w/ CJK 분석기)
 Elasticsearch Docker 설치 및 nori(mecab) 테스트 
 
-### Elasticsearch 7.2 / Kibana 7.2 설치 (Docker)
+### Elasticsearch 7.5.1 / Kibana 7.5.1 설치 (Docker)
 
 ```bash
 # elasticsearch
-docker run -d --name elasticsearch  -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.2.0
+docker run -d --name elasticsearch  -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.5.1
 
 # kibana
-docker run -d --name kibana --link elasticsearch:elasticsearch  -e "ELASTICSEARCH_URL=http://elasticsearch:9200" -p 5601:5601 docker.elastic.co/kibana/kibana:7.2.0
+docker run -d --name kibana --link elasticsearch:elasticsearch  -e "ELASTICSEARCH_URL=http://elasticsearch:9200" -p 5601:5601 docker.elastic.co/kibana/kibana:7.5.1
 ```
 
 #### # Nori 분석기 설치 
@@ -279,3 +279,26 @@ GET nori_test/_analyze
 }
 
 ```
+
+###  CJK 분석기 적용 
+- Index 적용 
+  - 전체 필드에 적용하기 위해서는 analyzer 이름을 "default"로 지정
+
+```
+PUT cjk_test
+
+{
+    "settings" : {
+        "analysis" : {
+            "analyzer" : {
+                "default" : {
+                  "type":"custom",
+                      "tokenizer" : "standard",
+                      "filter" : "cjk_bigram"
+                  }
+            }
+        }
+    }
+}
+```
+
