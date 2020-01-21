@@ -1,7 +1,7 @@
 version: "3.3"                                                             
 services:                                                                  
   elasticsearch:                                                           
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.2.0             
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.1            
     container_name: elasticsearch                                          
     volumes:                                                               
       - esdata:/usr/share/elasticsearch/data                               
@@ -12,7 +12,7 @@ services:
       - "9200:9200"                                                        
                                                                            
   kibana:                                                                  
-    image: docker.elastic.co/kibana/kibana:7.2.0                           
+    image: docker.elastic.co/kibana/kibana:7.5.1                          
     container_name: kibana                                                 
     environment:                                                           
       - ELASTICSEARCH_URL=http://elasticsearch:9200                        
